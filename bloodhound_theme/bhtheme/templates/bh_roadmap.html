@@ -32,20 +32,20 @@
   <body>
     <div id="content" class="roadmap">
 
-      <form id="prefs" method="get" action="">
-        <div>
+     <form role="form"  method="get" action="" style="display: inline-block">
+        <div class="checkbox">
+		<label>
           <input type="checkbox" id="showcompleted" name="show" value="completed"
-                 checked="${'completed' in show or None}" />
-          <label for="showcompleted">Show completed milestones</label>
+                 checked="${'completed' in show or None}" />Show completed milestones
+		  </label>
         </div>
-        <div>
+        <div class="checkbox">
+		<label>
           <input type="checkbox" id="hidenoduedate" name="show" value="noduedate"
-                 checked="${'noduedate' in show or None}" />
-          <label for="hidenoduedate">Hide milestones with no due date</label>
+                 checked="${'noduedate' in show or None}" />Hide milestones with no due date
+				 </label>
         </div>
-        <div class="buttons">
-          <input type="submit" value="${_('Update')}" />
-        </div>
+          <input class="btn btn-default" type="submit" value="${_('Update')}" />
       </form>
 
       <h1>Roadmap</h1>
@@ -74,12 +74,15 @@
                 </i18n:msg>
               </p>
               <p py:otherwise="" class="date">
-                No date set
+                <span class="label label-warning">No date set</span>
               </p>
             </py:choose>
-            <xi:include href="progress_bar.html" py:if="mstats.stats.count"
-                        py:with="stats = mstats.stats; interval_hrefs = mstats.interval_hrefs;
-                                 stats_href = mstats.stats_href"/>
+            <xi:include href="widget_progress.html" py:if="mstats.stats.count"
+                        py:with="view = 'standard'; legend = True;
+							stats = mstats.stats; interval_hrefs = mstats.interval_hrefs;"
+                                 />
+
+
           </div>
 
           <div class="description" xml:space="preserve">
