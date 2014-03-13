@@ -33,22 +33,26 @@
   <body>
     <div id="content" class="roadmap">
 
-     <form role="form"  method="get" action="" style="display: inline-block">
-        <div class="checkbox">
+<div  class="trac-clause">
+     <form class="form-inline" role="form"  method="get">
+	 	<div class ="checkbox">
 		<label>
-          <input type="checkbox" id="showcompleted" name="show" value="completed"
-                 checked="${'completed' in show or None}" />Show completed milestones
+	
+          <input type="checkbox"  id="showcompleted" name="show"  value="completed"
+                 checked="${'completed' in show or None}" />  Show completed milestones
 		  </label>
-        </div>
-        <div class="checkbox">
+		  
+		  
 		<label>
+		
           <input type="checkbox" id="hidenoduedate" name="show" value="noduedate"
-                 checked="${'noduedate' in show or None}" />Hide milestones with no due date
+                 checked="${'noduedate' in show or None}" />  Hide milestones with no due date
 				 </label>
-        </div>
+				 
           <input class="btn btn-default" type="submit" value="${_('Update')}" />
+		  </div>
       </form>
-
+</div>
       <h1>Roadmap</h1>
 
       <div class="milestones">
@@ -56,7 +60,7 @@
 
           <div class="info trac-progress" py:with="mstats = milestone_stats[idx]">
             <h2><a href="${href.milestone(milestone.name)}">
-              Milestone: <em>${milestone.name}</em>
+             <span class="hidden-phone"> Milestone:</span> <em>${milestone.name}</em>
             </a></h2>
             <py:choose>
               <p py:when="milestone.completed" class="date">
@@ -78,6 +82,7 @@
                 <span class="label label-warning">No date set</span>
               </p>
             </py:choose>
+			
             <xi:include href="widget_progress.html" py:if="mstats.stats.count"
                         py:with="view = 'standard'; legend = True;
 							stats = mstats.stats; interval_hrefs = mstats.interval_hrefs;"
@@ -85,10 +90,11 @@
 
 
           </div>
-
-          <div class="description" xml:space="preserve">
+			 <p py:if="milestone.description">
+          <div class="description well" xml:space="preserve">
             ${wiki_to_html(context.child(milestone.resource), milestone.description)}
           </div>
+		  </p>
 
         </div>
       </div>
@@ -96,7 +102,7 @@
       <div py:if="'MILESTONE_CREATE' in perm" class="buttons">
        <form id="add" method="get" action="${href.milestone()}"><div>
         <input type="hidden" name="action" value="new" />
-        <input type="submit" value="${_('Add new milestone')}" />
+        <input class="btn btn-default" type="submit" value="${_('Add new milestone')}" />
        </div></form>
       </div>
 
